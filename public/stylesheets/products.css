@@ -1,0 +1,324 @@
+body {
+    height: 100vh;
+    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+        url(https://res.cloudinary.com/dobvmwmvk/image/upload/v1669709161/547_project/bgiamge_mau0ba.webp);
+    background-size: cover;
+    background-position: center;
+    text-shadow: 0 0.05rem 0.1rem rgba(0, 0, 0, 0.5);
+    box-shadow: inset 0 0 5rem rgba(0, 0, 0, 0.5);
+}
+
+.nav-link {
+    padding: 0.25rem 0;
+    font-weight: 700;
+    color: rgba(255, 255, 255, 0.5);
+    margin-left: 1rem;
+    border-bottom: 0.25rem solid transparent;
+}
+
+.nav-link:hover {
+    color: rgba(255, 255, 255, 0.5);
+    border-bottom-color: rgba(255, 255, 255, 0.5);
+}
+
+.nav-link.active {
+    color: white;
+    border-bottom-color: white;
+
+}
+
+.middleTop {
+  margin: 5px 10px;
+}
+
+#carouselExampleIndicators {
+  margin: 2% 30% 2% 30%;
+  padding: 1em;
+  width: 40%;
+  height: 80%;
+}
+
+.carousel-item img{
+  height: 250px;
+  width: 550px;
+}
+
+.middle {
+  margin: 5px 10px;
+}
+
+.leftColumn {
+  margin: 5px 10px;
+
+  padding: 10px 5px;
+
+  color: white;
+  width: 20%;
+  margin: auto;
+  float: left;
+}
+
+.rightColumn {
+  margin: 5px 10px;
+  padding: 10px 5px;
+
+  width: 75%;
+  float: left;
+}
+
+.imageBox img{
+    margin: 1em;
+    padding: 1em;
+
+    display: block;
+    margin: auto;
+    width: 10%;
+    height: 10%;  
+}
+
+#content img{
+  width: 150px;
+  height: 150px;
+}
+
+
+.cartBox{
+	position: fixed;
+	top: 0;
+	left: 0;
+	height: 100%;
+	width: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background: rgba(0, 0, 0, 0.8);
+	z-index: 99999;
+	transition: 0.3s linear;
+	transform: scale(0);
+}
+.cartBox.active{
+	transform: scale(1);
+}
+.cartBox .cart{
+	position: relative;
+	height: 70%;
+	width: 80%;
+	background: #fff;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+.cartBox .cart i{
+	position: absolute;
+	right: 0;
+	top: 0;
+	background:#f00;
+	padding:10px 15px;
+	color: #fff;
+	cursor: pointer;
+}
+.cartBox .cart i:hover{
+	background: #ff0000a5;
+}
+.cartBox .cart h1{
+	position: relative;
+	margin-top: 2%;
+	font-size: 2.8rem;
+	color: #017bf5;
+}
+
+.addToCart{
+	position: relative;
+	text-align: left;
+	font-size: 1rem;
+	/* padding: 10px 0; */
+	background:white;
+	text-decoration: none;
+	color: rgb(8, 165, 238);
+	/* padding: 10px 15px; */
+	text-shadow: 0px 0px 2px rgba(0, 0, 0, 0.5);
+}
+
+
+.column-4 {
+  float: center;
+  width: 21%;
+  padding: 10px;
+  margin:20px;
+  height: 250px;
+}
+
+/* Hover classes for individual project boxes */
+
+.project-2:hover {
+  background-color:#FEDE00;
+}
+
+.project-3:hover {
+   background-color: #FEDE00;
+}
+
+.project-4:hover {
+   background-color: #FEDE00;
+}
+
+.project-5:hover {
+   background-color: #FEDE00;
+}
+
+.project-6:hover {
+   background-color: #FEDE00;
+}
+
+.project-7:hover {
+   background-color: #FEDE00;
+}
+
+
+.project-1 {
+  background: url('../images/project-left.jpeg');
+  background-size: cover;
+}
+
+.project-2 {
+  background-color:white;
+}
+
+.project-3 {
+  background-color:#209BFF;
+}
+
+.project-4 {
+  background-color:#112d4e;
+}
+
+.project-5 {
+  background-color:#F9F7F7;
+}
+
+.project-6 {
+  background-color:#209BFF;
+}
+
+.project-7 {
+    background-color:#F9F7F7;
+}
+
+.project-8 {
+  background: url('../images/project-right.jpeg');
+  background-size: cover;
+}
+
+/* SEARCH BAR */
+#pac-input {
+  background-color: #fff;
+  font-family: Roboto;
+  font-size: 15px;
+  font-weight: 300;
+  margin-left: 12px;
+  padding: 0 11px 0 13px;
+  text-overflow: ellipsis;
+  width: 300px;
+}
+
+#pac-input:focus {
+  border-color: #4d90fe;
+}
+
+.pac-container {
+  font-family: Roboto;
+}
+
+#type-selector {
+  color: #fff;
+  background-color: #4d90fe;
+  padding: 5px 11px 0px 11px;
+}
+
+#type-selector label {
+  font-family: Roboto;
+  font-size: 13px;
+  font-weight: 300;
+}
+#target {
+  width: 345px;
+}
+
+#map {
+  /* height: 500px; 
+  width: 500px;  */
+  /* position: absolute; */
+  overflow: hidden;
+  /* z-index: 12345678; */
+  /* top: 50%;
+  left: 30%; */
+  width: 100%;
+  height: 100vh;
+}
+
+.column {
+  float: center;
+  /* width: 21%;
+  padding: 10px;
+  margin: 20px; */
+  height: 150px;
+  margin: 10px;
+}
+
+.search-container {
+  display: flex;
+  margin: 10px;
+}
+
+.search-results {
+  width: 60%;
+  margin-right: 10px;
+}
+
+.map-container {
+  width: 50%;
+}
+
+#map {
+  margin: 5px;
+}
+
+.animal_list{
+  width: 100%;
+  display: flex;
+  flex-flow: row nowrap;
+}
+
+.car_price {
+  border:1px solid white;
+  /* position:fixed; */
+}
+
+
+/* <!-- HTML !-->
+<button class="button-34" role="button">Button 34</button> */
+
+/* CSS */
+.button-34 {
+  background: #be7633;
+  border-radius: 999px;
+  box-shadow: #5E5DF0 0 10px 20px -10px;
+  box-sizing: border-box;
+  color: #FFFFFF;
+  cursor: pointer;
+  font-family: Inter,Helvetica,"Apple Color Emoji","Segoe UI Emoji",NotoColorEmoji,"Noto Color Emoji","Segoe UI Symbol","Android Emoji",EmojiSymbols,-apple-system,system-ui,"Segoe UI",Roboto,"Helvetica Neue","Noto Sans",sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 24px;
+  opacity: 1;
+  outline: 0 solid transparent;
+  padding: 8px 18px;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  width: fit-content;
+  word-break: break-word;
+  border: 0;
+  padding-bottom: 4px;
+  padding-top: 4px;
+}

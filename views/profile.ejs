@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta http-equiv="Content-Security-Policy" content="default-src *  data: blob: filesystem: about: ws: wss: 'unsafe-inline' 'unsafe-eval' 'unsafe-dynamic'; script-src * data: blob: 'unsafe-inline' 'unsafe-eval'; connect-src * data: blob: 'unsafe-inline'; img-src * data: blob: 'unsafe-inline'; frame-src * data: blob: ; style-src * data: blob: 'unsafe-inline'; font-src * data: blob: 'unsafe-inline';">
+  
+  <link href="/stylesheets/image/Bee.jpg" rel="shortcut icon" type="image/ico" />
+  
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+    integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+    crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+    integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+    crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+    integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+    crossorigin="anonymous"></script>
+  <script defer src="https://use.fontawesome.com/releases/v5.0.10/js/all.js"
+    integrity="sha384-slN8GvtUJGnv6ca26v8EzVaR9DC58QEwsIk9q1QXdCU8Yu8ck/tL/5szYlBbqmS+"
+    crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.9/vue.js"></script>
+  <link rel="stylesheet" href="/stylesheets/home.css">
+
+  <script>
+    FontAwesomeConfig = { autoReplaceSvg: false }
+    function myFunction() {
+      var x = document.getElementById("myInput");
+      if (x.type === "password") {
+        x.type = "text";
+      } else {
+        x.type = "password";
+      }
+    }
+  </script>
+  <!-- font -->
+  <link rel="stylesheet" type="text/css"
+    href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
+
+  <script>
+    function Delete(e) {
+      let items = [];
+      JSON.parse(localStorage.getItem('items')).map(data => {
+        if (data.productId != e.parentElement.parentElement.children[0].textContent) {
+          items.push(data);
+        }
+        else {
+          if (data.number - 1 != 0) {
+            data.number = data.number - 1;
+            items.push(data);
+          }
+        }
+      });
+      localStorage.setItem('items', JSON.stringify(items));
+      window.location.reload();
+    };
+  </script>
+  
+  <title>Community Car Rentals</title>
+</head>
+
+<body data-spy="scroll" data-target=".navbar" data-offset="50" id="page-top">
+
+
+  <nav class="navbar sticky-top navbar-expand-lg navbar-dark bg-dark">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="/home">Community Car Rentals</a>
+
+      <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+        <div class="navbar-nav">
+          
+          <a class="nav-link" href="/home">Home</a>
+          
+          <% if(currentUser) {%>
+          <a class="nav-link" href="/products/new">List-A-Car</a>
+          <% } %>
+          <a class="nav-link" href="/products">Rent-A-Car</a>
+        </div>
+        <div class="navbar-nav ml-auto" style="margin-left: auto!important;">
+          <% if(!currentUser) {%>
+          <a class="nav-link" href="/login">Login</a>
+          <a class="nav-link" href="/register">Register</a>
+          <% }else { %>
+          <a class="nav-link" href="/profile">Profile</a>
+          <a id="logout" class="nav-link" href="/logout">Logout</a>
+          <% } %>
+          <li><a class="nav-link" href="/about">About</a></li>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+
+  <div id="content" style="height: 50%;width: 40%;margin: 300px;background-color: rgb(255, 255, 255);border-radius: 20px;margin-left: 450px;margin-bottom: 0px;margin-top: 200px;">
+    <div id="content2">
+    <div id="mydiv" data-test=<%= currentUser._id %>></div>
+
+    <h1 class="mb-0" style="margin-top: 70px;margin-left: 50px;"> Hello, {{ users.username }} </h1>
+    <div id="userinfo" style="width: 50%;margin-left: 150px;margin-top: 40px;">
+      <div>
+        <h4> Account: </h4>
+        <input type="text" v-model="users.account" :disabled="!isEditing[0]" :class="{view: !isEditing[0]}">
+      </div>
+
+      <div>
+        <h4> email: </h4>
+        <input type="text" v-model="users.email" :disabled="!isEditing[0]" :class="{view: !isEditing[0]}">
+      </div>
+      <div>
+        <h4> Password: </h4>
+        <input type="password" v-model="users.pass" value="FakePSW" id="myInput"
+          style="background-color: rgba(255, 246, 246, 0.678);" readonly>
+        <div>
+          <input type="checkbox" onclick="myFunction()">Show Password
+        </div>
+      </div>
+      <!-- <button class="btn btn-info" @click="$set(isEditing, 0, true)" v-if="!isEditing[0]">
+        Edit
+      </button> -->
+      <button class="btn btn-success" @click="save(0); $set(isEditing, 0, false);" v-if="isEditing[0]">
+        Save
+      </button>
+      <button class="btn btn-danger" @click="del(0); $set(isEditing, 0, false);" v-if="isEditing[0]">
+        Delete
+      </button>
+      <button class="btn btn-dark" @click="$set(isEditing, 0, false)" v-if="isEditing[0]">
+        Cancel
+      </button>
+    </div>
+  </div>
+  </div>
+
+  <script>
+    var userID = document.getElementById('mydiv').dataset.test
+    const va = new Vue({
+      el: '#content',
+      data: {
+        errorMsg: '',
+        isEditing: {},
+        users: [],
+        historys: []
+      },
+      created() {
+        this.load();
+      },
+      methods: {
+        load() {
+
+          fetch('/graphql', {
+            method: 'POST',
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              query: `
+                query {
+                    user(user_id: "`+ userID + `") {
+                      username
+                      account
+                      email
+                      pass 
+                    }
+                  }
+                `
+            })
+          })
+            .then(async r => {
+              if (!r.ok) throw new Error(await r.text());
+              return r;
+            })
+            .then(r => r.json())
+            .then(r => (this.users = r.data.user))
+            .catch(this.flash)
+        }
+
+      }
+    })
+
+    const newVa = new Vue({
+      el: '#cont',
+      data: {
+        errorMsg: '',
+        isEditing: {},
+        productList: []
+      },
+      created() {
+
+      },
+      methods: {
+        pay() {
+          const localItems = localStorage.getItem("items");
+          const opts = {
+            method: 'POST',
+            body: localItems,
+            headers: {
+              'Content-Type': 'application/json'
+            }
+          };
+
+          return fetch('/cart', opts)
+            .then(async r => {
+              if (!r.ok) throw new Error(await r.text());
+              return r;
+            })
+            .then(localStorage.removeItem('items'))
+            .then(this.load)
+            .then(window.location.reload())
+            .catch(this.flash)
+
+        }
+      }
+    })
+  </script>
+  <script src="/javascripts/cart.js"></script>
+
+</body>
+
+</html>

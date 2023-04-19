@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta http-equiv="Content-Security-Policy" content="default-src *  data: blob: filesystem: about: ws: wss: 'unsafe-inline' 'unsafe-eval' 'unsafe-dynamic'; script-src * data: blob: 'unsafe-inline' 'unsafe-eval'; connect-src * data: blob: 'unsafe-inline'; img-src * data: blob: 'unsafe-inline'; frame-src * data: blob: ; style-src * data: blob: 'unsafe-inline'; font-src * data: blob: 'unsafe-inline';">
+
+
+    <!-- Favicon -->
+    <link href="/stylesheets/image/Bee.jpg" rel="shortcut icon" type="image/ico" />
+    <title>Community Car Rentals</title>
+    <!-- we need to careful the link CDN may change its version and cause some code cannot work properly -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.9/vue.js"></script>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" href="/stylesheets/add.css">
+
+</head>
+
+<body class="d-flex flex-column vh-100">
+    <nav class="navbar sticky-top navbar-expand-lg navbar-dark bg-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/home">Community Car Rentals</a>
+            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                <div class="navbar-nav w-100">
+                    <a class="nav-link " href="/home">Home</a>
+                    
+                    <a class="nav-link" href="/products/new">List-A-Car</a>
+                    <a class="nav-link" href="/products">Rent-A-Car</a>
+                </div>
+                <div class="navbar-nav ml-auto">
+                    <% if(!currentUser) {%>
+
+                    <a class="nav-link" href="/login">Login</a>
+                    <a class="nav-link" href="/register">Register</a>
+                    <% } else { %>
+                    <a class="nav-link" href="/profile">Profile</a>
+                    <a id="logout" class="nav-link" href="/logout">Logout</a>
+                    <% } %>
+                    <a class="nav-link" href="/about">About</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <% if(success && success.length) { %>
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        <%= success %>
+        <button type="button" class="btn-close" data-dismiss="alert" aria-label="Close"></button>
+    </div>
+    <% } %>
+
+    <% if(error && error.length) { %>
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        <%= error %>
+        <button type="button" class="btn-close" data-dismiss="alert" aria-label="Close"></button>
+    </div>
+    <% } %>
+
+    <div class="middle">
+        <div class="leftColumn">
+            <form runat="server">
+                <img id="preview_img" src="#" alt="Preview your picture here" />
+            </form>
+        </div>
+
+        <div class="rightColumn">
+
+            <div class="form-container">
+                <h4>Car Information</h4>
+                <form ACTION="/products/new" METHOD="POST" ENCTYPE="multipart/form-data" class="validated-form">
+
+                    <div class="mb-3">
+                        <label for="VIN">Vehicle Identification Number:</label>
+                        <input type="text" name="vin" id="vin" required autofocus />
+                        <div class="valid-feedback">Looks good</div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="price">Price:</label>
+                        <input type="number" name="price" id="price" required />
+                        <div class="valid-feedback">Looks good</div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="StartDate">Start Date:</label>
+                        <input id="car_date_in" type="date" name="car_date_in" required/>
+                        <div class="valid-feedback">Looks good</div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="EndDate">End Date:</label>
+                        <input id="car_date_out" type="date" name="car_date_out" required/>
+                        <div class="valid-feedback">Looks good</div>
+                    </div>
+
+
+                    <div class="mb-3">
+                        <label for="product_photo">Car Images:</label>
+                        <input type="file" name="product_photo" id="product_photo" multiple ="multiple" accept="image/jpeg, image/png, image/jpg" required />
+                        <div class="valid-feedback">Looks good</div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="Look like">Appearance:</label>
+                        <input type="radio" name="look_like" id="look_like" value="Like new" />Looks like
+                        new
+                        <input type="radio" name="look_like" id="look_like" value="Used" />Used
+                    </div>
+
+                    <input type="text" id="latlng" name="latlng" hidden/>
+                    <div>
+                        <label for="Car Location">Location:</label>
+                        <input
+                          id="pac-input"
+                          class="controls"
+                          type="text"
+                          placeholder="Location"
+                          style="width: 90%;"
+                          name = "car_location"
+                        />
+            
+                        <script
+                          async
+                          defer
+                          src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAv4KguI1bAPNkO8GVJ5UAqVag3mqCY6o4&libraries=places&signed_in=true&callback=initMap"
+                        ></script>
+                      </div>
+
+                    <div class="mb-3"><label for="descript">Description:</label>
+                        <textarea rows="3" cols="30" name="descript" placeholder="Description"></textarea>
+                    </div>
+
+                    <input class="btn btn-success" id="add_car" type="submit" value="Add car" />
+                </form>
+            </div>
+
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bs-custom-file-input/dist/bs-custom-file-input.min.js"></script>
+    <script src="/javascripts/validateForm.js"></script>
+
+</body>
+
+
+<script type="text/javascript">
+
+    function initMap() {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(
+                function (position) {
+                    var pos = {
+                    lat: position.coords.latitude,
+                    lng: position.coords.longitude,
+                    }
+                    const geocoder = new google.maps.Geocoder();
+
+                    geocoder
+                    .geocode({ location: pos })
+                    .then((response) => {
+                        console.log(response)
+                        var place =response.results[0].formatted_address;
+                        document.getElementById('pac-input').value = place;
+                    })
+                    document.getElementById('latlng').value =  pos.lat + ":" + pos.lng;
+                },
+                function () {
+                    handleLocationError(true, infoWindow, map.getCenter())
+                }
+            )
+        } else {
+            handleLocationError(false, infoWindow, map.getCenter())
+        }
+        var input = document.getElementById("pac-input")
+        var searchBox = new google.maps.places.SearchBox(input)
+        
+        searchBox.addListener("places_changed", function () {
+            var places = searchBox.getPlaces();
+            
+            if (places.length == 0) {
+                return
+            }
+            places.forEach(function (place) {
+                document.getElementById('latlng').value = place.geometry.location.lat() + ":" + place.geometry.location.lng();
+            })
+        })
+    }
+        
+    document.querySelector("#product_photo").addEventListener("change", (e) => { 
+        if (window.File && window.FileReader && window.FileList && window.Blob) {
+            const files = e.target.files;
+            const output = document.querySelector("#preview_img");
+            output.innerHTML = "";
+            for (let i = 0; i < files.length; i++) {
+            if (!files[i].type.match("image")) continue;
+                const picReader = new FileReader();
+                picReader.addEventListener("load", function (event) {
+                const picFile = event.target;
+                const div = document.createElement("div");
+                div.innerHTML = `<img class="thumbnail" src="${picFile.result}" title="${picFile.name}"/>`;
+                output.appendChild(div);
+                });
+                picReader.readAsDataURL(files[i]);
+            }
+        } else {
+            alert("Your browser does not support File API");
+        }
+    })
+
+
+</script>
+
+<footer class="footer bg-dark py-3 mt-auto">
+    <div class="container">
+        <span class="text-muted">&copf; Bhumi, Gopi & Vibhav 2022 </span>
+    </div>
+</footer>
+
+
+</html>
